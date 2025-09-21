@@ -1,99 +1,172 @@
-# FHEVM Hardhat Template
+# 🃏 Privacy Poker
 
-A Hardhat-based template for developing Fully Homomorphic Encryption (FHE) enabled Solidity smart contracts using the
-FHEVM protocol by Zama.
+基于Zama FHE(完全同态加密)技术的隐私扑克游戏，实现真正的隐私保护德州扑克体验。
 
-## Quick Start
+## ✨ 特性
 
-For detailed instructions see:
-[FHEVM Hardhat Quick Start Tutorial](https://docs.zama.ai/protocol/solidity-guides/getting-started/quick-start-tutorial)
+- **🔒 完全隐私**: 所有底牌、下注金额都是加密的，对手无法得知
+- **🎲 公平随机**: 使用Zama FHE随机数生成器确保游戏公平性
+- **💰 真实价值**: 使用ETH进行游戏，所有交易链上执行
+- **🛡️ 防作弊**: 基于区块链的透明规则，无法操纵
+- **⚡ 实时体验**: React前端提供流畅的游戏体验
 
-### Prerequisites
+## 🏗️ 技术架构
 
-- **Node.js**: Version 20 or higher
-- **npm or yarn/pnpm**: Package manager
+### 智能合约
+- **框架**: Hardhat + TypeScript
+- **加密库**: Zama FHEVM Solidity
+- **网络**: Sepolia Testnet (支持本地测试)
 
-### Installation
+### 前端
+- **框架**: React + TypeScript + Vite
+- **钱包**: RainbowKit + wagmi + viem
+- **加密**: Zama Relayer SDK
+- **样式**: 原生CSS (无TailwindCSS)
 
-1. **Install dependencies**
+## 🚀 快速开始
 
-   ```bash
-   npm install
-   ```
+### 1. 环境准备
 
-2. **Set up environment variables**
+```bash
+# 克隆项目
+git clone <repository-url>
+cd PrivacyPoker
 
-   ```bash
-   npx hardhat vars set MNEMONIC
+# 安装依赖
+npm install
 
-   # Set your Infura API key for network access
-   npx hardhat vars set INFURA_API_KEY
-
-   # Optional: Set Etherscan API key for contract verification
-   npx hardhat vars set ETHERSCAN_API_KEY
-   ```
-
-3. **Compile and test**
-
-   ```bash
-   npm run compile
-   npm run test
-   ```
-
-4. **Deploy to local network**
-
-   ```bash
-   # Start a local FHEVM-ready node
-   npx hardhat node
-   # Deploy to local network
-   npx hardhat deploy --network localhost
-   ```
-
-5. **Deploy to Sepolia Testnet**
-
-   ```bash
-   # Deploy to Sepolia
-   npx hardhat deploy --network sepolia
-   # Verify contract on Etherscan
-   npx hardhat verify --network sepolia <CONTRACT_ADDRESS>
-   ```
-
-6. **Test on Sepolia Testnet**
-
-   ```bash
-   # Once deployed, you can run a simple test on Sepolia.
-   npx hardhat test --network sepolia
-   ```
-
-## 📁 Project Structure
-
-```
-fhevm-hardhat-template/
-├── contracts/           # Smart contract source files
-│   └── FHECounter.sol   # Example FHE counter contract
-├── deploy/              # Deployment scripts
-├── tasks/               # Hardhat custom tasks
-├── test/                # Test files
-├── hardhat.config.ts    # Hardhat configuration
-└── package.json         # Dependencies and scripts
+# 安装前端依赖
+npm run frontend:install
 ```
 
-## 📜 Available Scripts
+### 2. 配置环境变量
 
-| Script             | Description              |
-| ------------------ | ------------------------ |
-| `npm run compile`  | Compile all contracts    |
-| `npm run test`     | Run all tests            |
-| `npm run coverage` | Generate coverage report |
-| `npm run lint`     | Run linting checks       |
-| `npm run clean`    | Clean build artifacts    |
+```bash
+# 设置Hardhat变量
+npx hardhat vars setup
 
-## 📚 Documentation
+# 需要设置的变量：
+# MNEMONIC: 您的钱包助记词
+# INFURA_API_KEY: Infura API密钥
+# ETHERSCAN_API_KEY: Etherscan API密钥 (可选，用于验证合约)
+```
 
-- [FHEVM Documentation](https://docs.zama.ai/fhevm)
-- [FHEVM Hardhat Setup Guide](https://docs.zama.ai/protocol/solidity-guides/getting-started/setup)
-- [FHEVM Testing Guide](https://docs.zama.ai/protocol/solidity-guides/development-guide/hardhat/write_test)
-- [FHEVM Hardhat Plugin](https://docs.zama.ai/protocol/solidity-guides/development-guide/hardhat)
+### 3. 编译和测试
+
+```bash
+# 编译智能合约
+npm run compile
+
+# 运行测试
+npm test
+
+# 运行演示脚本
+npm run demo
+```
+
+### 4. 部署合约
+
+```bash
+# 部署到本地网络
+npm run deploy:local
+
+# 部署到Sepolia测试网
+npm run deploy:sepolia
+```
+
+### 5. 启动前端
+
+```bash
+# 开发模式启动前端
+npm run frontend:dev
+
+# 构建前端
+npm run frontend:build
+```
+
+## 🎮 游戏说明
+
+### 游戏流程
+
+1. **创建游戏**: 部署PrivacyPoker合约
+2. **玩家加入**: 支付ante(盲注)加入游戏 (2-6人)
+3. **开始游戏**: 游戏创建者开始游戏，系统发放底牌
+4. **公共牌**: 分三轮发放5张公共牌
+5. **玩家行动**: 加密下注(弃牌/跟注/加注)
+6. **结算**: 游戏结束，获胜者获得奖池
+
+### 隐私保护
+
+- **底牌**: 每位玩家的2张底牌完全加密
+- **下注**: 所有下注金额都是加密的
+- **余额**: 玩家余额始终保密
+- **随机性**: FHE随机数确保发牌公平
+
+## 📋 任务命令
+
+### 合约操作
+
+```bash
+# 获取游戏信息
+npx hardhat privacy-poker:game-info --contract 0x...
+
+# 加入游戏
+npx hardhat privacy-poker:join-game --contract 0x... --ante 0.01
+
+# 开始游戏 (仅owner)
+npx hardhat privacy-poker:start-game --contract 0x...
+
+# 发放公共牌
+npx hardhat privacy-poker:deal-cards --contract 0x...
+
+# 玩家行动
+npx hardhat privacy-poker:player-action --contract 0x... --action 0 # 弃牌
+npx hardhat privacy-poker:player-action --contract 0x... --action 1 # 跟注  
+npx hardhat privacy-poker:player-action --contract 0x... --action 2 --amount 20 # 加注
+
+# 结束游戏
+npx hardhat privacy-poker:end-game --contract 0x...
+
+# 查看余额
+npx hardhat privacy-poker:get-balance --contract 0x...
+```
+
+### 开发命令
+
+```bash
+# 代码检查
+npm run lint
+
+# 格式化代码  
+npm run prettier:write
+
+# 清理构建文件
+npm run clean
+
+# 生成类型
+npm run typechain
+```
+
+## 📁 项目结构
+
+```
+PrivacyPoker/
+├── contracts/           # 智能合约
+│   ├── PrivacyPoker.sol # 主游戏合约
+│   └── FHECounter.sol   # 示例合约
+├── deploy/              # 部署脚本
+├── tasks/               # Hardhat任务
+├── test/                # 测试文件
+├── scripts/             # 工具脚本
+├── frontend/            # React前端
+│   ├── src/
+│   │   ├── components/  # React组件
+│   │   ├── hooks/       # 自定义Hooks
+│   │   ├── utils/       # 工具函数
+│   │   └── types/       # TypeScript类型
+│   └── package.json
+└── docs/                # 文档
+```
 
 ## 📄 License
 
