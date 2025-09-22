@@ -1,0 +1,130 @@
+.poker-game {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  color: white;
+}
+
+.poker-main {
+  padding: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.poker-welcome {
+  text-align: center;
+  padding: 4rem 2rem;
+}
+
+.poker-welcome h1 {
+  font-size: 3rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  background: linear-gradient(45deg, #f59e0b, #ef4444);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.poker-welcome p {
+  font-size: 1.2rem;
+  color: #94a3b8;
+}
+
+.poker-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 2rem;
+}
+
+.loading-spinner {
+  width: 3rem;
+  height: 3rem;
+  border: 4px solid #374151;
+  border-top: 4px solid #f59e0b;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1rem;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.poker-error {
+  text-align: center;
+  padding: 2rem;
+  background: #dc2626;
+  border-radius: 0.5rem;
+  margin: 2rem 0;
+}
+
+.poker-error h3 {
+  margin-bottom: 1rem;
+}
+
+.retry-button {
+  background: #f59e0b;
+  color: white;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  font-weight: 500;
+  margin-top: 1rem;
+}
+
+.retry-button:hover {
+  background: #d97706;
+}
+
+.poker-active-game {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 2rem;
+  min-height: 80vh;
+}
+
+.poker-game-ended {
+  text-align: center;
+  padding: 4rem 2rem;
+}
+
+.poker-game-ended h2 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  color: #f59e0b;
+}
+
+.new-game-button {
+  background: #10b981;
+  color: white;
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-top: 2rem;
+}
+
+.new-game-button:hover {
+  background: #059669;
+}
+
+@media (max-width: 768px) {
+  .poker-active-game {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .poker-welcome h1 {
+    font-size: 2rem;
+  }
+
+  .poker-main {
+    padding: 1rem;
+  }
+}
